@@ -38,3 +38,8 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')
 }
+
+war {
+    webInf { from 'src/webinf.xml' }
+    webXml = file('src/web.xml')
+}
