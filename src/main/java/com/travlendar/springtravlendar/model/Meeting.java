@@ -12,14 +12,19 @@ public class Meeting {
 
     @Column(name = "LOCATION")
     private String location;
+
     @Column(name = "STARTLOCATION")
     private String startLocation;
+
     @Column(name = "START_TIME")
     private Date startTime;
+
     @Column(name = "END_TIME")
     private Date endTime;
+
     @Column(name = "DESCRIPTION")
     private String description;
+
     @Column(name = "DURATION")
     private String duration;
 
