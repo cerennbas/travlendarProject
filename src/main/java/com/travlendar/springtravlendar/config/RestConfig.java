@@ -19,6 +19,7 @@ public class RestConfig {
         config.addAllowedMethod("GET");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("POST");
+        config.addAllowedMethod("OPTIONS");
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
