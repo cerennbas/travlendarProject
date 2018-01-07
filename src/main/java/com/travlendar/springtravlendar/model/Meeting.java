@@ -9,8 +9,12 @@ public class Meeting {
     @Id
     @GeneratedValue
     private long id;
+
     @Column(name = "LOCATION")
     private String location;
+
+    @Column(name = "STARTLOCATION")
+    private String startlocation;
     @Column(name = "START_TIME")
     private Date startTime;
     @Column(name = "END_TIME")
@@ -35,6 +39,14 @@ public class Meeting {
     }
 
     public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getStartLocation() {
+        return location;
+    }
+
+    public void setStartLocation(String location) {
         this.location = location;
     }
 

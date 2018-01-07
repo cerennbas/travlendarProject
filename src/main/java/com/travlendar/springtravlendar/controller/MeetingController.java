@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class MeetingController {
@@ -49,7 +50,7 @@ public class MeetingController {
 
         meeting.setUser(user);
         meetingService.save(meeting);
-        String duration = googleMapsService.travelTime(user.getHomeAddress(), meeting.getLocation());
+        String duration = googleMapsService.travelTime(meeting.getStartLocation(), meeting.getLocation());
 
         return ResponseEntity.ok().body(duration);
     }

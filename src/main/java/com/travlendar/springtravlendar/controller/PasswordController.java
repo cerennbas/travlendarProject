@@ -8,17 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 import java.util.UUID;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class PasswordController {
 
     @Autowired
@@ -34,7 +32,7 @@ public class PasswordController {
         String userEmail = json.get("email");
         User user = userService.findUserByEmail(userEmail);
         if(user == null) {
-            message =  "We couldn't find any account for given e-mail address.";
+            throw new TravlendarException("We couldn't find any account for given e-mail address.", HttpStatus.NOT_FOUND);
         }  else {
             user.setResetToken(UUID.randomUUID().toString());
 
