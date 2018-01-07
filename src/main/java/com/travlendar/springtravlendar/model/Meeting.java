@@ -44,11 +44,11 @@ public class Meeting {
     }
 
     public String getStartLocation() {
-        return location;
+        return startLocation;
     }
 
-    public void setStartLocation(String location) {
-        this.location = location;
+    public void setStartLocation(String startLocation) {
+        this.startLocation = startLocation;
     }
 
     public String getDuration() {
