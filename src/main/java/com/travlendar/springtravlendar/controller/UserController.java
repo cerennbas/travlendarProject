@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Map;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class UserController {
