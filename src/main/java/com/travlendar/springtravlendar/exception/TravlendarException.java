@@ -2,7 +2,7 @@ package com.travlendar.springtravlendar.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class TravlendarException extends Exception {
+public class TravlendarException extends RuntimeException {
     private HttpStatus httpStatus;
 
     public TravlendarException() {
