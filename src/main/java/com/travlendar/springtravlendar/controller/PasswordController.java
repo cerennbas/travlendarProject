@@ -58,7 +58,6 @@ public class PasswordController {
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET)
     public ModelAndView displayResetPasswordPage(ModelAndView modelAndView, @RequestParam("token") String token) {
-
         User user = userService.findUserByResetToken(token);
 
         if (user != null) {

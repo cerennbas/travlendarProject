@@ -44,11 +44,17 @@ public class UserController {
         httpSession.setAttribute("email", email);
         return new LoginResponse(Jwts.builder().setSubject(email).setIssuedAt(new Date())
                 .signWith(SignatureAlgorithm.HS256, "secretKey").compact());
-    };
+    }
 
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         String email = user.getEmail();
+        String password = user.getPassword();
+
+        if(email == null || password == null) {
+            throw new TravlendarException("Email and Password must be given.", HttpStatus.BAD_REQUEST);
+        }
+
         if(userService.findUserByEmail(user.getEmail()) != null)  {
             return ResponseEntity.badRequest().body("This email address is already exist. You cannot be registered with this email.");
         }
