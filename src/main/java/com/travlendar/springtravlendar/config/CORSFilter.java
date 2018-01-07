@@ -1,4 +1,5 @@
 package com.travlendar.springtravlendar.config;
+
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -6,8 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -26,5 +30,12 @@ public class CORSFilter extends CorsFilter {
         if (response.getHeader("Access-Control-Allow-Origin") == null)
             response.addHeader("Access-Control-Allow-Origin", "*");
         filterChain.doFilter(request, response);
+    }
+    
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 }
