@@ -1,8 +1,10 @@
 package com.travlendar.springtravlendar.service;
 
+import com.travlendar.springtravlendar.exception.TravlendarException;
 import com.travlendar.springtravlendar.model.User;
 import com.travlendar.springtravlendar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,9 @@ public class UserServiceImpl implements  UserService {
     @Override
     public boolean validatePassword(String email, String password) {
         User user = userRepository.findByEmail(email);
+        if(user == null) {
+            throw new TravlendarException("Invalid login! Please check your password.", HttpStatus.UNAUTHORIZED);
+        }
         return bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 

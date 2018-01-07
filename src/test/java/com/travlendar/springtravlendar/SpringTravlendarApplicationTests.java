@@ -12,5 +12,4 @@ public class SpringTravlendarApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }

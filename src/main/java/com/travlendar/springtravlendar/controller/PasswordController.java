@@ -50,7 +50,7 @@ public class PasswordController {
 
             emailService.sendEmail(passwordResetEmail);
 
-            message = applicationURL + "A password reset link has been sent to " + userEmail;
+            message = "A password reset link has been sent to " + userEmail;
         }
 
         return ResponseEntity.ok().body(message);
