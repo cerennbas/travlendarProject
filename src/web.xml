@@ -9,6 +9,10 @@
  <servlet-class>
   org.springframework.web.servlet.DispatcherServlet
  </servlet-class>
+<multipart-config>
+    <max-file-size>5242880</max-file-size>
+    <max-request-size>20971520</max-request-size>
+</multipart-config>
  <load-on-startup>1</load-on-startup>
 </servlet>
  
