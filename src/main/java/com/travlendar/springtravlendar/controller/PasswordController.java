@@ -1,9 +1,11 @@
 package com.travlendar.springtravlendar.controller;
 
+import com.travlendar.springtravlendar.exception.TravlendarException;
 import com.travlendar.springtravlendar.model.User;
 import com.travlendar.springtravlendar.service.EmailService;
 import com.travlendar.springtravlendar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -57,47 +59,33 @@ public class PasswordController {
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.GET)
-    public ModelAndView displayResetPasswordPage(ModelAndView modelAndView, @RequestParam("token") String token) {
+    public ResponseEntity displayResetPasswordPage(@RequestParam("token") String token) {
         User user = userService.findUserByResetToken(token);
 
         if (user != null) {
-            modelAndView.addObject("resetToken", token);
+            return ResponseEntity.ok().body("You can change your password");
         } else {
-            modelAndView.addObject("errorMessage", "This is an invalid password reset "
-                    + "link.");
+            throw new TravlendarException("This is an invalid password reset "
+                    + "link.", HttpStatus.BAD_REQUEST);
         }
 
-        return modelAndView;
     }
 
     @RequestMapping(value = "/reset", method = RequestMethod.POST)
-    public ModelAndView setNewPassword(ModelAndView modelAndView, @RequestParam Map<String, String> requestParams,
-                                       RedirectAttributes redirectAttributes) {
-
-        User user = userService.findUserByResetToken(requestParams.get("token"));
+    public ResponseEntity setNewPassword(@RequestParam("token") String token, @RequestBody Map<String, String> requestParams) {
+        User user = userService.findUserByResetToken(token);
 
         if (user != null) {
             user.setPassword(requestParams.get("password"));
             user.setResetToken(null);
             userService.save(user);
 
-            redirectAttributes.addFlashAttribute("successMessage", "You have successfully " +
-                    "reset your password.  You may now login.");
-
-            modelAndView.setViewName("redirect:login");
-            return modelAndView;
+            return ResponseEntity.ok().body( "You have successfully " +
+                    "reset your password. You may now login.");
 
         } else {
-            modelAndView.addObject("errorMessage", "This is an invalid password" +
-                    " reset link.");
-            modelAndView.setViewName("resetPassword");
+            throw new TravlendarException("This is an invalid password reset "
+                + "link.", HttpStatus.BAD_REQUEST);
         }
-
-        return modelAndView;
-    }
-
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ModelAndView handleMissingParams(MissingServletRequestParameterException ex) {
-        return new ModelAndView("redirect:login");
     }
 }
