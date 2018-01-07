@@ -25,3 +25,13 @@ public class RestConfig {
         return new CorsFilter(source);
     }
 }
+
+@Configuration
+@EnableWebMvc
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
+    }
+}
