@@ -41,6 +41,6 @@ dependencies {
 }
 
 war {
-    webInf { from 'src/webinf.xml' }
+    webInf { from 'src/rest-servlet.xml' }
     webXml = file('src/web.xml')
 }
