@@ -1,41 +1,20 @@
 package com.travlendar.springtravlendar.config;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
-public class CORSFilter extends CorsFilter {
-
-    public CORSFilter(CorsConfigurationSource source) {
-        super((CorsConfigurationSource) source);
-    }
+public class CORSFilter extends WebMvcConfigurerAdapter  {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
-
-        response.addHeader("Access-Control-Allow-Headers",
-                "Access-Control-Allow-Origin, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-        if (response.getHeader("Access-Control-Allow-Origin") == null)
-            response.addHeader("Access-Control-Allow-Origin", "*");
-        filterChain.doFilter(request, response);
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
+            .allowedHeaders("*")
+            .exposedHeaders("*")
+            .allowCredentials(false).maxAge(3600);
     }
     
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-        return source;
-    }
 }
