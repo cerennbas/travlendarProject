@@ -12,8 +12,6 @@ public class CORSFilter extends WebMvcConfigurerAdapter  {
         registry.addMapping("/**")
             .allowedOrigins("*")
             .allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
-            .allowedHeaders("*")
-            .exposedHeaders("*")
             .allowCredentials(false).maxAge(3600);
     }
     
