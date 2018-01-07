@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  
 @SpringBootApplication
-@EnableAutoConfiguration (exclude = {DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration (exclude = {SecurityAutoConfiguration.class, DataSourceAutoConfiguration.class})
 public class SpringTravlendarApplication {
 
 	public static void main(String[] args) {
