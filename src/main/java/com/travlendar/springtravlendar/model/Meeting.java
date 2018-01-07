@@ -12,15 +12,16 @@ public class Meeting {
 
     @Column(name = "LOCATION")
     private String location;
-
     @Column(name = "STARTLOCATION")
-    private String startlocation;
+    private String startLocation;
     @Column(name = "START_TIME")
     private Date startTime;
     @Column(name = "END_TIME")
     private Date endTime;
     @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "DURATION")
+    private String duration;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "USER_ID", nullable = false)
@@ -48,6 +49,14 @@ public class Meeting {
 
     public void setStartLocation(String location) {
         this.location = location;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public Date getStartTime() {
@@ -81,4 +90,6 @@ public class Meeting {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

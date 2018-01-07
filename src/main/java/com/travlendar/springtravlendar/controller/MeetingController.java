@@ -49,8 +49,10 @@ public class MeetingController {
         User user = userService.findUserByEmail(email);
 
         meeting.setUser(user);
-        meetingService.save(meeting);
         String duration = googleMapsService.travelTime(meeting.getStartLocation(), meeting.getLocation());
+        meeting.setDuration(duration);
+
+        meetingService.save(meeting);
 
         return ResponseEntity.ok().body(duration);
     }
